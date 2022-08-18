@@ -5,7 +5,8 @@ from datetime import date           #Daily dates for naming downloads.
 
 #Classes
 class class_post:
-    def __init__(self,schedule_days,top_filter,time_limit,raw_material,source_site,type,tag,source,post_title):
+    def __init__(self,counter_index,schedule_days,top_filter,time_limit,raw_material,source_site,type,tag,source,post_title):
+        self.counter_index = counter_index      #Index for external upload counter
         self.schedule_days = schedule_days      #Which days to post this content
         self.top_filter = top_filter            #Top Daily/Weekly/Yearly
         self.time_limit = time_limit            #Video Min Time Limit
@@ -21,8 +22,9 @@ compilation_time_limit=30
 
 
 
-#Posts
+#Posts (When a new post is added here, go to lurien/upload_counter.json and add a ,1 to the end of the list)
 Post_1=class_post(
+            0,
             ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
             "day",
             compilation_time_limit,
@@ -35,7 +37,8 @@ Post_1=class_post(
             )
 
 Post_2=class_post(
-            ["Monday","Tuesday","Wednesday","Friday","Saturday","Sunday"],
+            1,
+            ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
             "day",
             compilation_time_limit,
             "video",
