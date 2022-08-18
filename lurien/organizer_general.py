@@ -22,7 +22,7 @@ compilation_time_limit=30
 
 
 
-#Posts (When a new post is added here, go to lurien/upload_counter.json and add a ,1 to the end of the list)
+#Posts (After 50 different posts the counter list must be extended.)
 Post_1=class_post(
             0,
             ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
