@@ -1,0 +1,2 @@
+
+def image():pass

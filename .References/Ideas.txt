@@ -1,0 +1,72 @@
+Octobots
+
+Find which channels with high subscriber counts can be automated?
+
+General
+	Good outro music, atrioc
+	Good channel name deep cut
+	Where to find already edited clips
+	Edit intro, outro etc. awith macros
+	Text to speech bot needed for some channels?
+	Analyzze audience sizes etc. What is something 1 billion people would watch?
+	Rip clips or from reddit
+	YT 18-35 years old
+	Low effort yet high peneration is required
+	What does 1B people watch in common
+
+Channel 1: From Twitch Download Popular clips and upload them ( twitch logo>_ (recap?) noice, MizClip?)
+	Rips from Twitch Clips (Choose someone who is clipped a lot, compare clip views to treshold)
+	Hook: AI generated Daily Twitch Recap (Twitch Recap t) 
+	Animation
+
+	Uploads to Youtube
+	Sends to Reddit: New name_of_creator clip dropped: name_of_video
+
+	we need a good youtube name:
+	creator specific: Mumbo's right brain cell
+	daily dose of internet gibi?
+	Türkçe için de yap: Twitchteki kişilerden bak.
+	Seçilecek kişilerin twitch + yt followerları belli bir noktada olmalı
+	Twitch mapimiz var, Youtube map?
+	Her kanal 3-5 kişi takip etsin
+	Bir kanal: İlgili birkaç kişinin hepsinin klipleri OTV + Friends gibi.
+
+Channel 2: News Ripper (New Media?)
+	Sync with my news selector
+	No, market too small. 10M Türk dizi marketi varsa 2M haber var. Youtubeda dizi fragmanı 1M alıyorsa haber 200K'da limitli?
+	Cüneyt vs.'ler 200-750k kasıyor.
+	Monetizasyon Türk firmalar üstünden olmamalı.
+
+
+
+Channel 3: Iconic Clips from Movies (Saturated market?)
+	No. Saturated.
+
+Channel 4:An actual news outlet with actual news for turkey?
+	8m tv den izleniyor, 70m yt piyasasi var
+	Genc nufus %50 filan ama
+	Onlara hitap etmesi daha iyi
+
+
+Channel 5:The Lazy man's Kitchen
+	20 min
+	minimum pantry
+	minimum dirty dishes at the end
+
+Channel 6: Movie Clips and straight from new movies
+
+
+
+Lurien NECST (Direkt patlamasa da botlarla baya bişi yapmayı öğrencez.)
+✓ Need
+X Entry
+- Control
+✓ Scale
+✓ Time
+
+
+
+
+References
+----------
+https://twitchatlas.com/
