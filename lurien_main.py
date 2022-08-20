@@ -13,11 +13,12 @@ for Post in organizer_general.Post_list:                        #Iterating throu
         if Post.raw_material == "video":                        #Then scrape, stitch and upload such posts. (With different methods depending on raw type)
             #scraper_reddit.video(Post)
             #stitcher_general.video(Post)
-            upload_general.youtube(Post)
-        elif Post.raw_material == "Image":
+            #upload_general.youtube(Post)
             pass
+        elif Post.raw_material == "Image":
+            scraper_reddit.all(Post)
         elif Post.raw_material == "Text":
-            #scraper_reddit.text(Post.raw_material)
+            #scraper_reddit.text(Post.raw_material,post_limit)
             pass
 
 

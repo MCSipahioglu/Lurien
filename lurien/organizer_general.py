@@ -3,6 +3,13 @@ from datetime import date           #Daily dates for naming downloads.
 
 
 
+#Global Variables
+compilation_time_limit=30
+
+
+
+
+
 #Classes
 class class_post:
     def __init__(self,counter_index,schedule_days,top_filter,time_limit,raw_material,source_site,type,tag,source,post_title):
@@ -17,8 +24,9 @@ class class_post:
         self.source = source                    #Source subreddits
         self.post_title = post_title            #Youtube Post title
 
-#Global Variables
-compilation_time_limit=30
+
+
+
 
 
 
@@ -49,7 +57,33 @@ Post_2=class_post(
             "Reddit Fails Compilation"
             )
 
-Post_list=[Post_1, Post_2]
+Post_3=class_post(
+            2,
+            ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "day",
+            compilation_time_limit,
+            "video",
+            "reddit",
+            "compilations",
+            "FunnyAnimals",
+            ['FunnyAnimals'],
+            "Funny Animals Compilation"
+            )
+
+Post_4=class_post(
+            3,
+            ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            "day",
+            compilation_time_limit,
+            "image",
+            "reddit",
+            "compilations",
+            "Memes",
+            ['Memes'],
+            "Funniest Memes Compilation"
+            )
+
+Post_list=[Post_1, Post_2, Post_3,Post_4]
 
 
 

@@ -1,6 +1,6 @@
 from os import system           #For running the upload_youtube.py script
 from datetime import date       #Daily dates for naming downloads.
-import json
+import json                     #For storing the counters. Because we take the counter in first we can't use an expanding list without defining a "1" counter for the new Posts first.
 
 def youtube(Post):
     with open("./lurien/upload_counter.json","r") as fp:
