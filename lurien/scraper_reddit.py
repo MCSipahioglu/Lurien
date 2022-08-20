@@ -11,10 +11,6 @@ from lurien import organizer_general
 
 
 
-
-
-
-
 reddit=praw.Reddit(client_id='Dh7zCnkmEkfg3p8FPiBdSg',
             client_secret='p2oPRnTCTPqDdShCs-nb3i17FsAf3Q',
             client_username='SignoraValentine',
@@ -36,12 +32,8 @@ def text(Post, post_limit): #Remove post limit.
 
 
 
-
-
 def image():
     print("scraper_reddit_image")
-
-
 
 
 
@@ -67,8 +59,6 @@ def video(Post):                        #Downloads top videos from the given sub
                 break
             
             i=i+1                                                           #Increment marker for naming the videos.
-
-
 
 
 
@@ -136,3 +126,4 @@ def all(Post):                          #Downloads all images, gifs, videos (If 
             i=i+1                                                           #Increment marker for naming the raw content.
 
         
+
