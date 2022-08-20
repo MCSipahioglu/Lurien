@@ -4,8 +4,8 @@ from datetime import date           #Daily dates for naming downloads.
 
 
 #Global Variables
-compilation_time_limit=30
-
+compilation_time_limit=30   #Final length
+Image_Clip_Length=10
 
 
 

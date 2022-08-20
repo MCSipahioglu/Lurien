@@ -1,8 +1,7 @@
 #Primary Packages
-from lurien import *
-from datetime import datetime
-import pickle                   #For interacting with counter list.
-import json
+from lurien import *            #For everything else.
+from datetime import datetime   #For scheduling purposes.
+import json                     #For interacting with the counter list.
 
 
 
@@ -15,9 +14,10 @@ for Post in organizer_general.Post_list:                        #Iterating throu
             #stitcher_general.video(Post)
             #upload_general.youtube(Post)
             pass
-        elif Post.raw_material == "Image":
+        elif Post.raw_material == "image":
             scraper_reddit.all(Post)
-        elif Post.raw_material == "Text":
+            #stitcher_general.all(Post)
+        elif Post.raw_material == "text":
             #scraper_reddit.text(Post.raw_material,post_limit)
             pass
 
