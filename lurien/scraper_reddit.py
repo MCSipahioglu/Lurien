@@ -26,7 +26,7 @@ reddit=praw.Reddit(client_id='Dh7zCnkmEkfg3p8FPiBdSg',                          
 def text(Post, post_limit): #Remove post limit.
     for subreddit in Post.source:
         i=1
-        for submission in reddit.subreddit(subreddit).top(time_filter=Post.top_filter,limit=post_limit):
+        for submission in reddit.subreddit(subreddit).top(time_filter=Post.top_filter, limit=post_limit):
             print(submission.title)    #Show the submission title as feedback.
             print(submission.selftext)
             i=i+1                      #Download respective images, gifs, videos, galleries. Increment marker for naming the file.
@@ -47,16 +47,16 @@ def video(Post):                        #Downloads top videos from the given sub
 
     for submission in reddit.subreddit(subreddits).top(time_filter=Post.top_filter):        #In the desired multireddit, rank posts as top "weekly" or "daily" via top_filter
         if 'v.redd.it' in submission.url:                                                   #Filter the video posts:
-            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top videos
-                output=f"{i}x" ,                                                                                    #Naming them as 1, 2, 3...
-                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
+            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url,    #Download the top videos
+                output=f"{i}x",                                                                                     #Naming them as 1, 2, 3...
+                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/",                   #Into this directory
                 quality = 720)                                                                                      #At this resolution
             
             video_clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}x.mp4")  #Taking the newly downloaded video.
             text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
-                    color="white", stroke_color="black", stroke_width=2, size=video_clip.size)\
+                    color="red", stroke_color="black", stroke_width=2, size=video_clip.size)\
                     .set_duration(organizer_general.Text_Clip_Length)                       #Create post title clip to respective image clip.
-            clip=CompositeVideoClip([video_clip,text_clip],size=video_clip.size)            #Overlay the text clip on to the gifclip.
+            clip=CompositeVideoClip([video_clip, text_clip], size=video_clip.size)          #Overlay the text clip on to the gifclip.
 
             os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
             clip.write_videofile(f"{i}.mp4", codec='mpeg4')                                 #Convert composite video to video and save.
@@ -79,16 +79,16 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
     for submission in reddit.subreddit(subreddits).top(time_filter=Post.top_filter):        #In the desired multireddit, rank posts as top "weekly" or "daily" via top_filter
         if 'v.redd.it' in submission.url:                                                   #Scrape the videos.
 
-            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top videos
-                output=f"{i}x" ,                                                                                    #Naming them as 1, 2, 3...
-                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
+            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url,    #Download the top videos
+                output=f"{i}x",                                                                                     #Naming them as 1, 2, 3...
+                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/",                   #Into this directory
                 quality = 1080)                                                                                     #At this resolution
             
             video_clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}x.mp4")  #Taking the newly downloaded video.
             text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
-                                color="white", stroke_color="black", stroke_width=2, size=video_clip.size)\
+                                color="red", stroke_color="black", stroke_width=2, size=video_clip.size)\
                                 .set_duration(organizer_general.Text_Clip_Length)           #Create post title clip to respective video clip.
-            clip=CompositeVideoClip([video_clip,text_clip],size=video_clip.size)            #Overlay the text clip on to the gifclip.
+            clip=CompositeVideoClip([video_clip, text_clip], size=video_clip.size)          #Overlay the text clip on to the gifclip.
 
             os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
             clip.write_videofile(f"{i}.mp4", codec='mpeg4')                                 #Convert composite video to video and save.
@@ -105,19 +105,20 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
 
 
         elif submission.url.endswith('.gif') or submission.url.endswith('.GIF') or submission.url.endswith('.gifv') or submission.url.endswith('.GIFV'):    #Scrape the gifs
-            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top gifs
-                output=f"{i}" ,                                                                                     #Naming them as 1, 2, 3...
-                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
+            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url,    #Download the top gifs
+                output=f"{i}",                                                                                      #Naming them as 1, 2, 3...
+                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/",                   #Into this directory
                 quality = 1080)                                                                                     #At this resolution
             
             gif_clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.gif")     #Taking the newly downloaded gif.
             text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
-                                color="white", stroke_color="black", stroke_width=2, size=gif_clip.size)\
+                                color="red", stroke_color="black", stroke_width=2, size=gif_clip.size)\
                                 .set_duration(organizer_general.Text_Clip_Length)           #Create post title clip to respective gif clip.
-            clip=CompositeVideoClip([gif_clip,text_clip],size=gif_clip.size)                #Overlay the text clip on to the gifclip.
+            clip=CompositeVideoClip([gif_clip, text_clip], size=gif_clip.size)              #Overlay the text clip on to the gifclip.
 
             os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
             clip.write_videofile(f"{i}.mp4", codec='mpeg4')                                 #Convert gif to video and save.
+            os.remove(f"./{i}.gif")                                                         #Delete the raw gif.
             os.chdir(f"../../../../../")                                                    #Go back to main directory.
 
             time_current=time_current + clip.duration                                       #clip.duration gives newly downloaded video length in seconds.
@@ -131,20 +132,21 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
 
 
         elif 'i.redd.it' in submission.url:                                                 #Scrape the images
-            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top images
-                output=f"{i}" ,                                                                                     #Naming them as 1, 2, 3...
-                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
+            file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url,    #Download the top images
+                output=f"{i}",                                                                                      #Naming them as 1, 2, 3...
+                destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/",                   #Into this directory
                 quality = 1080)                                                                                     #At this resolution
             
             image_clip=ImageClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.jpeg")\
                                 .set_duration(organizer_general.Image_Clip_Length)          #Newly downloaded image to clip with set duration.
             text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
-                                color="white", stroke_color="black", stroke_width=2, size=image_clip.size)\
+                                color="red", stroke_color="black", stroke_width=2, size=image_clip.size)\
                                 .set_duration(organizer_general.Text_Clip_Length)           #Create post title clip to respective image clip.
-            clip=CompositeVideoClip([image_clip,text_clip], size=image_clip.size)           #Overlay the text clip on to the imageclip.
+            clip=CompositeVideoClip([image_clip, text_clip], size=image_clip.size)          #Overlay the text clip on to the imageclip.
 
             os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
             clip.write_videofile(f"{i}.mp4", fps=24, codec='mpeg4')                         #Convert combined clip to mp4 and save.
+            os.remove(f"./{i}.jpeg")                                                        #Delete the raw jpeg.
             os.chdir(f"../../../../../")                                                    #Go back to main directory.
 
             time_current=time_current + organizer_general.Image_Clip_Length                 #Updated final video length.
