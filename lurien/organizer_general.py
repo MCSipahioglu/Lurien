@@ -38,13 +38,13 @@ Post_1=class_post(
             counter_index=  0,
             schedule_days=  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
             top_filter=     "day",
-            time_limit=     compilation_time_limit,
+            time_limit=     600,
             raw_material=   "video",
             source_site=    "reddit",
             type=           "compilations",
             tag=            "FunnyVideos",
-            source=         ['funnyvideos','funny'],
-            post_title=     "Reddit Funny Videos Compilation"
+            source=         ['funny','funnyvideos', 'holdmybeer','Unexpected'],
+            post_title=     "Funny Videos Compilation"
             )
 
 Post_2=class_post(
@@ -56,8 +56,8 @@ Post_2=class_post(
             source_site=    "reddit",
             type=           "compilations",
             tag=            "WhatCouldGoWrong",
-            source=         ['Whatcouldgowrong'],
-            post_title=     "Reddit Fails Compilation"
+            source=         ['Whatcouldgowrong', 'therewasanattempt', 'instant_regret'],
+            post_title=     "Funniest Fails Compilation"
             )
 
 Post_3=class_post(
@@ -65,12 +65,13 @@ Post_3=class_post(
             schedule_days=  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
             top_filter=     "day",
             time_limit=     compilation_time_limit,
-            raw_material=   "video",
+            raw_material=   "image",
             source_site=    "reddit",
             type=           "compilations",
-            tag=            "FunnyAnimals",
-            source=         ['FunnyAnimals'],
-            post_title=     "Funny Animals Compilation"
+            tag=            "FunnyImages",
+            source=         ['PerfectTiming', 'trippinthroughtime', 'ATBGE', "interestingasfuck"],
+            post_title=     "Most Viral Images Compilation",
+            audio=          "Pizzatron3000"
             )
 
 Post_4=class_post(
@@ -82,12 +83,43 @@ Post_4=class_post(
             source_site=    "reddit",
             type=           "compilations",
             tag=            "Memes",
-            source=         ['dankmemes'],
+            source=         ['memes','dankmemes','meme'],
             post_title=     "Funniest Memes Compilation",
             audio=          "Pizzatron3000"
             )
 
-Post_list=[Post_1, Post_2, Post_3,Post_4]
+Post_5=class_post(
+            counter_index=  4,
+            schedule_days=  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            top_filter=     "day",
+            time_limit=     compilation_time_limit,
+            raw_material=   "video",
+            source_site=    "reddit",
+            type=           "compilations",
+            tag=            "ViralVideos",
+            source=         ['videos', 'vidid','woahdude','Damnthatsinteresting','NatureIsFuckingLit','nextfuckinglevel'],
+            post_title=     "Today's Most Viral Videos Compilation"
+            )
+
+Post_6=class_post(
+            counter_index=  5,
+            schedule_days=  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            top_filter=     "day",
+            time_limit=     compilation_time_limit,
+            raw_material=   "video",
+            source_site=    "reddit",
+            type=           "compilations",
+            tag=            "PerfectlyCutScreams",
+            source=         ['perfectlycutscreams'],
+            post_title=     "Perfectly Cut Screams Compilation"
+            )
+
+
+
+#weekly  AskReddit AskMen Talesfromretail PettyRevenge Nostupidquestions, YouShouldKnow, AskWomen, confession, Explain like I am five...Stories 2. Hesap
+#imgur tumblr twitter
+
+Post_list=[Post_1, Post_2, Post_3,Post_4,Post_5,Post_6]
 
 
 
