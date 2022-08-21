@@ -1,0 +1,9 @@
+Python=
+
+
+
+
+
+
+MUST Install ImageMagick wit legacy code (Choose in installation)
+	into a new folder in lurien_venv and point to it in the script using TextFile.

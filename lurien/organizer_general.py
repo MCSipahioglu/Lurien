@@ -6,8 +6,9 @@ from datetime import date           #Daily dates for naming downloads.
 
 
 #Global Variables
-compilation_time_limit=30   #Final length
-Image_Clip_Length=10
+compilation_time_limit=30   #Final length (s)
+Image_Clip_Length=10        #Image Clip Length (s)
+Text_Clip_Length=5          #Text Clip Length (s)
 
 
 
@@ -81,7 +82,7 @@ Post_4=class_post(
             source_site=    "reddit",
             type=           "compilations",
             tag=            "Memes",
-            source=         ['Memes'],
+            source=         ['dankmemes'],
             post_title=     "Funniest Memes Compilation",
             audio=          "Pizzatron3000"
             )

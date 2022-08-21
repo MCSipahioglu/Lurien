@@ -6,12 +6,14 @@ from RedDownloader import RedDownloader     #For downloading Reddit media
 from moviepy.editor import *                #For determining video length, making clips from iamges.
 from datetime import date                   #Daily dates for naming downloads.
 from lurien import organizer_general
+from moviepy.config import change_settings  #Required to declare ImageMagick Binary for TextClips to work.
 
 
 
 
 
-reddit=praw.Reddit(client_id='Dh7zCnkmEkfg3p8FPiBdSg',
+change_settings({"IMAGEMAGICK_BINARY": r"./lurien_venv/ImageMagick-7.1.0-Q16-HDRI/ImageMagick-7.1.0-Q16-HDRI/convert.exe"})     #Setup for TextClip
+reddit=praw.Reddit(client_id='Dh7zCnkmEkfg3p8FPiBdSg',                                                                          #Setup for Reddit API
             client_secret='p2oPRnTCTPqDdShCs-nb3i17FsAf3Q',
             client_username='SignoraValentine',
             password='tux9DtSBf@ZQp/p',
@@ -25,9 +27,9 @@ def text(Post, post_limit): #Remove post limit.
     for subreddit in Post.source:
         i=1
         for submission in reddit.subreddit(subreddit).top(time_filter=Post.top_filter,limit=post_limit):
-            print(submission.title)                                                         #Show the submission title as feedback.
+            print(submission.title)    #Show the submission title as feedback.
             print(submission.selftext)
-            i=i+1                                                                 #Download respective images, gifs, videos, galleries. Increment marker for naming the file.
+            i=i+1                      #Download respective images, gifs, videos, galleries. Increment marker for naming the file.
             print("----------------")
 
 
@@ -43,48 +45,64 @@ def video(Post):                        #Downloads top videos from the given sub
     time_current=0                      #time_current holds total length of downloaded clips.
     i=1                                 #i increments by 1 after each download, is used for naming downloaded files.
 
-    for submission in reddit.subreddit(subreddits).top(time_filter=Post.top_filter):    #In the desired multireddit, rank posts as top "weekly" or "daily" via top_filter
-        if 'v.redd.it' in submission.url:                                               #Filter the video posts:
-
+    for submission in reddit.subreddit(subreddits).top(time_filter=Post.top_filter):        #In the desired multireddit, rank posts as top "weekly" or "daily" via top_filter
+        if 'v.redd.it' in submission.url:                                                   #Filter the video posts:
             file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top videos
-                output=f"{i}" ,                                                                                     #Naming them as 1, 2, 3...
+                output=f"{i}x" ,                                                                                    #Naming them as 1, 2, 3...
                 destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
                 quality = 720)                                                                                      #At this resolution
             
-            clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.mp4")         #Taking the newly downloaded video.
-            time_current=time_current + clip.duration                       #clip.duration gives newly downloaded video length in seconds.
+            video_clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}x.mp4")  #Taking the newly downloaded video.
+            text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
+                    color="white", stroke_color="black", stroke_width=2, size=video_clip.size)\
+                    .set_duration(organizer_general.Text_Clip_Length)                       #Create post title clip to respective image clip.
+            clip=CompositeVideoClip([video_clip,text_clip],size=video_clip.size)            #Overlay the text clip on to the gifclip.
+
+            os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
+            clip.write_videofile(f"{i}.mp4", codec='mpeg4')                                 #Convert composite video to video and save.
+            os.chdir(f"../../../../../")                                                    #Go back to main directory.
             
-            if time_current>Post.time_limit:                                #if the cumulative length of the clips exceed the desired length, stop downloading.
+            if time_current>Post.time_limit:                                                #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
                 break
             
-            i=i+1                                                           #Increment marker for naming the videos.
+            i=i+1                                                                           #Increment marker for naming the videos.
 
 
 
-def all(Post):                          #Downloads all images, gifs, videos (If used as gifs). Concatanates them into a video with a background music.
+def mixed(Post):                        #Downloads all images, gifs, videos (In case if used as gifs). Concatanates them into a video with a background music.
     
     subreddits="+".join(Post.source)    #Create multi-reddit from selected subreddits. (All rankings below work on these multi-reddits)
     time_current=0                      #time_current holds total length of downloaded clips.
     i=1                                 #i increments by 1 after each download, is used for naming downloaded files.
 
-    for submission in reddit.subreddit(subreddits).top(time_filter=Post.top_filter):    #In the desired multireddit, rank posts as top "weekly" or "daily" via top_filter
-        if 'v.redd.it' in submission.url:                                               #For the video posts.
+    for submission in reddit.subreddit(subreddits).top(time_filter=Post.top_filter):        #In the desired multireddit, rank posts as top "weekly" or "daily" via top_filter
+        if 'v.redd.it' in submission.url:                                                   #Scrape the videos.
 
             file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top videos
-                output=f"{i}" ,                                                                                     #Naming them as 1, 2, 3...
+                output=f"{i}x" ,                                                                                    #Naming them as 1, 2, 3...
                 destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
                 quality = 1080)                                                                                     #At this resolution
             
-            clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.mp4")         #Taking the newly downloaded video.
-            time_current=time_current + clip.duration                       #clip.duration gives newly downloaded video length in seconds.
+            video_clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}x.mp4")  #Taking the newly downloaded video.
+            text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
+                                color="white", stroke_color="black", stroke_width=2, size=video_clip.size)\
+                                .set_duration(organizer_general.Text_Clip_Length)           #Create post title clip to respective video clip.
+            clip=CompositeVideoClip([video_clip,text_clip],size=video_clip.size)            #Overlay the text clip on to the gifclip.
+
+            os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
+            clip.write_videofile(f"{i}.mp4", codec='mpeg4')                                 #Convert composite video to video and save.
+            os.chdir(f"../../../../../")                                                    #Go back to main directory.
+
+            time_current=time_current + clip.duration                                       #clip.duration gives newly downloaded video length in seconds.
             
-            if time_current>Post.time_limit:                                #if the cumulative length of the clips exceed the desired length, stop downloading.
+            if time_current>=Post.time_limit:                                               #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
                 break
             
-            i=i+1                                                           #Increment marker for naming the raw content.
+            i=i+1                                                                           #Increment marker for naming the raw content.
         
+
 
         elif submission.url.endswith('.gif') or submission.url.endswith('.GIF') or submission.url.endswith('.gifv') or submission.url.endswith('.GIFV'):    #Scrape the gifs
             file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top gifs
@@ -92,38 +110,55 @@ def all(Post):                          #Downloads all images, gifs, videos (If 
                 destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
                 quality = 1080)                                                                                     #At this resolution
             
-            clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.gif")         #Taking the newly downloaded gif.
-            os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")                           #Change Directory to export path. (Moviepy doesn't let you choose export path.)
-            clip.write_videofile(f"{i}.mp4", codec='mpeg4')                                #Convert gif to video and save.
-            os.chdir(f"../../../../../")                                    #Go back to main directory.
+            gif_clip=VideoFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.gif")     #Taking the newly downloaded gif.
+            text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
+                                color="white", stroke_color="black", stroke_width=2, size=gif_clip.size)\
+                                .set_duration(organizer_general.Text_Clip_Length)           #Create post title clip to respective gif clip.
+            clip=CompositeVideoClip([gif_clip,text_clip],size=gif_clip.size)                #Overlay the text clip on to the gifclip.
 
-            time_current=time_current + clip.duration                       #clip.duration gives newly downloaded video length in seconds.
+            os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
+            clip.write_videofile(f"{i}.mp4", codec='mpeg4')                                 #Convert gif to video and save.
+            os.chdir(f"../../../../../")                                                    #Go back to main directory.
+
+            time_current=time_current + clip.duration                                       #clip.duration gives newly downloaded video length in seconds.
             
-            if time_current>Post.time_limit:                                #if the cumulative length of the clips exceed the desired length, stop downloading.
+            if time_current>=Post.time_limit:                                               #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
                 break
             
-            i=i+1                                                           #Increment marker for naming the raw content.
+            i=i+1                                                                           #Increment marker for naming the raw content.
 
 
-        elif 'i.redd.it' in submission.url:                                 #Scrape the images
+
+        elif 'i.redd.it' in submission.url:                                                 #Scrape the images
             file = RedDownloader.Download(url=requests.get("https://www.reddit.com" + submission.permalink).url ,   #Download the top images
                 output=f"{i}" ,                                                                                     #Naming them as 1, 2, 3...
                 destination=f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/" ,                  #Into this directory
                 quality = 1080)                                                                                     #At this resolution
             
-            clip=ImageClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.jpeg").set_duration(organizer_general.Image_Clip_Length)#Newly downloaded image to clip.
-            os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")                #Change Directory to export path. (Moviepy doesn't let you choose export path.)
-            clip.write_videofile(f"{i}.mp4",fps=24)                         #Convert image to video and save.
-            os.chdir(f"../../../../../")                                    #Go back to main directory.
+            image_clip=ImageClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}.jpeg")\
+                                .set_duration(organizer_general.Image_Clip_Length)          #Newly downloaded image to clip with set duration.
+            text_clip=TextClip(f"{submission.title}", font="Roboto", fontsize=80, method="caption", align="North",
+                                color="white", stroke_color="black", stroke_width=2, size=image_clip.size)\
+                                .set_duration(organizer_general.Text_Clip_Length)           #Create post title clip to respective image clip.
+            clip=CompositeVideoClip([image_clip,text_clip], size=image_clip.size)           #Overlay the text clip on to the imageclip.
 
-            time_current=time_current + organizer_general.Image_Clip_Length #Updated final video length.
+            os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
+            clip.write_videofile(f"{i}.mp4", fps=24, codec='mpeg4')                         #Convert combined clip to mp4 and save.
+            os.chdir(f"../../../../../")                                                    #Go back to main directory.
+
+            time_current=time_current + organizer_general.Image_Clip_Length                 #Updated final video length.
             
-            if time_current>Post.time_limit:                                #if the cumulative length of the clips exceed the desired length, stop downloading.
+            if time_current>=Post.time_limit:                                               #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
                 break
             
-            i=i+1                                                           #Increment marker for naming the raw content.
+            i=i+1                                                                           #Increment marker for naming the raw content.
+        
+
+
+        else:                                                                               #Else if it is a gallery, skip.
+            pass
 
         
 
