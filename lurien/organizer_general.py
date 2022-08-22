@@ -114,26 +114,22 @@ Post_6=class_post(
             post_title=     "Perfectly Cut Screams Compilation"
             )
 
-
-
-#weekly  AskReddit AskMen Talesfromretail PettyRevenge Nostupidquestions, YouShouldKnow, AskWomen, confession, Explain like I am five...Stories 2. Hesap
-#imgur tumblr twitter
-
 Post_list=[Post_1, Post_2, Post_3,Post_4,Post_5,Post_6]
 
-
+#weekly  AskReddit AskMen Talesfromretail PettyRevenge Nostupidquestions, YouShouldKnow, AskWomen, confession, Explain like I am five...Stories 2. Hesap
+#
+#Best of Imgur Today
+#Best of Imgur Shitposting aka User Submitted
+#Daily Tiktok Digest
+#Gfycat Random Popular Internet Gifs Dump Today
+#Best of Vine Today (Just Like its alive)
+#People based tiktok/instagram reel compilation every week
+#For the individual videos/content in our compilations we don't claim any ownership. We just try to make surfing through the internet more efficient. If you are a creator and want your content removed from our videos, please contact us. We will trim your content out within 24 hours guarenteed.
 
 #Methods
 def create_folders(Post):
-    try:
         os.makedirs(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")    #If not existant create dated media folder
-    except:
-        pass
-
-    try:
         os.makedirs(f"./upload/{date.today()}/youtube")                                     #and dated upload folders
-    except:
-        pass
         #os.makedirs(f"./upload/{date.today()}/instagram")
 
 
