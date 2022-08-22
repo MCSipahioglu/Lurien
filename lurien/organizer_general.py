@@ -6,9 +6,9 @@ from datetime import date           #Daily dates for naming downloads.
 
 
 #Global Variables
-compilation_time_limit=30   #Final length (s)
+compilation_time_limit=600  #Final length (s)
 Image_Clip_Length=10        #Image Clip Length (s)
-Text_Clip_Length=5          #Text Clip Length (s)
+Text_Clip_Length=4          #Text Clip Length (s)
 
 
 
@@ -38,7 +38,7 @@ Post_1=class_post(
             counter_index=  0,
             schedule_days=  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
             top_filter=     "day",
-            time_limit=     600,
+            time_limit=     compilation_time_limit,
             raw_material=   "video",
             source_site=    "reddit",
             type=           "compilations",
