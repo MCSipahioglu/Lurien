@@ -9,14 +9,14 @@ for Post in organizer_general.Post_list:                        #Iterating throu
         organizer_general.create_folders(Post)                  #First create necessary folders to organize raw files and upload files.
 
         if Post.raw_material == "video":                        #Then scrape, stitch and upload such posts. (With different methods depending on raw type)
-            #scraper_reddit.video(Post)
-            #stitcher_general.video(Post)
+            scraper_reddit.video(Post)
+            stitcher_general.video(Post)
             upload_general.youtube(Post)
-            #pass
+            pass
         elif Post.raw_material == "image":
-            #scraper_reddit.mixed(Post)
-            #stitcher_general.mixed(Post)
-            #upload_general.youtube(Post)
+            scraper_reddit.mixed(Post)
+            stitcher_general.mixed(Post)
+            upload_general.youtube(Post)
             pass
         elif Post.raw_material == "text":
             #scraper_reddit.text(Post.raw_material,post_limit)

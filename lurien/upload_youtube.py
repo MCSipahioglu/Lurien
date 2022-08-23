@@ -1,6 +1,7 @@
 #Full Tutorial from: https://www.youtube.com/watch?v=aFwZgth790Q&ab_channel=TonyTeachesTech
 #Also fixed "apiclient" module (outdated) as googleapiclient in the import section.
 #Modified for use as a function instead of a script with help from: https://github.com/SteBurz/youtube-uploader
+#For being able to upload custom thumbnails, you MUST verify your phone number from: YoutubeStudio->Settings->Channel->FeatureEligibility->IntermediateFeatures
 
 import httplib2
 import os
@@ -67,7 +68,14 @@ def initialize_upload(youtube, Post):
     media_body=MediaFileUpload(f"./upload/{date.today()}/youtube/{Post.tag}.mp4", chunksize=-1, resumable=True)
   )
 
-  resumable_upload(insert_request)
+
+  videoId=resumable_upload(insert_request)      #Upload the video and fetch back its ID.
+
+  thumbnail_request=youtube.thumbnails().set(
+  videoId = videoId,
+  media_body=MediaFileUpload(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/thumbnail.png")
+  )                                             #Create thumbnail upload request.
+  thumbnail_request.execute()                   #Upload thumbnail
 
 
 # This method implements an exponential backoff strategy to resume a failed upload.
@@ -77,11 +85,12 @@ def resumable_upload(insert_request):
   retry = 0
   while response is None:
     try:
-      print("Uploading file...")
+      print("Uploading Video...")
       status, response = insert_request.next_chunk()
       if response is not None:
         if 'id' in response:
           print(f"Video id '{response['id']}' was successfully uploaded.")
+          return response['id']
         else:
           exit(f"The upload failed with an unexpected response: {response}")
     except HttpError as e:
@@ -107,7 +116,7 @@ def resumable_upload(insert_request):
 
 def main(Post):
   
-  youtube = get_authenticated_service()
+  youtube = get_authenticated_service()          #Get the youtube object.
 
   try:
     initialize_upload(youtube, Post)

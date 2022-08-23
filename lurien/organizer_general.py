@@ -1,5 +1,5 @@
-import os                           #For making directories
-from datetime import date           #Daily dates for naming downloads.
+import os                                       #For making directories
+from datetime import date                       #Daily dates for naming downloads.
 
 
 
@@ -8,16 +8,16 @@ compilation_time_limit=600  #Final length (s)
 Image_Clip_Length=10        #Image Clip Length (s)
 Text_Clip_Length=4          #Text Clip Length (s)
 Youtube_Description =  "The Internet Compiler welcomes you all.\n\
-                        This isn't your first time watching our videos? Consider subscribing.\n\
-                        You want your voice heard? Maybe leave a comment.\n\
-                        Are you an Extra Awesome Person? Share this video with your friends.\n\
-                        \n\
-                        And as always you can turn on the notification bell to be alerted for our new videos.\n\
-                        Thank you for watching and we hope to see you in another video. Salut.\n\
-                        \n\
-                        \n\
-                        For the individual content in our compilations we don't claim any ownership. We just try to make surfing through the internet more efficient.\n\
-                        For your copyright claims please mail to theinternetcompiler+copyrightresolution@gmail.com, our team will resolve the issue within 24 hours."
+This isn't your first time watching our videos? Consider subscribing.\n\
+You want your voice heard? Maybe leave a comment.\n\
+Are you an Extra Awesome Person? Share this video with your friends.\n\
+\n\
+And as always you can turn on the notification bell to be alerted for our new videos.\n\
+Thank you for watching and we hope to see you in another video. Salut.\n\
+\n\
+\n\
+For the individual content in our compilations we don't claim any ownership. We just try to make surfing through the internet more efficient.\n\
+For your copyright claims please mail to theinternetcompiler+copyrightresolution@gmail.com, our team will resolve the issue within 24 hours."
 Youtube_Keywords= "funny, compilation"
 
 
@@ -119,7 +119,7 @@ Post_5=class_post(
             source_site=    "reddit",
             type=           "compilations",
             tag=            "ViralVideos",
-            source=         ['videos', 'vidid','woahdude','Damnthatsinteresting','NatureIsFuckingLit','nextfuckinglevel', 'BeAmazed', 'holdmyredbull', 'nonononoyes'],
+            source=         ['videos', 'vidid','woahdude','MadeMeSmile','Damnthatsinteresting','NatureIsFuckingLit','nextfuckinglevel', 'BeAmazed', 'holdmyredbull', 'nonononoyes'],
             post_title=     "Today's Most Viral Videos Compilation",
             yt_description= Youtube_Description,
             yt_keywords=    Youtube_Keywords
@@ -152,6 +152,5 @@ def create_folders(Post):
         if not os.path.isdir(f"./upload/{date.today()}/youtube"):
                 os.makedirs(f"./upload/{date.today()}/youtube")                                         #and dated upload folders
         #os.makedirs(f"./upload/{date.today()}/instagram")
-
 
 
