@@ -150,7 +150,7 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
             clip=CompositeVideoClip([image_clip, text_clip], size=image_clip.size)          #Overlay the text clip on to the imageclip.
 
             os.chdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
-            clip.write_videofile(f"{i}.mp4", fps=24, codec='png')                           #Convert combined clip to mp4 and save.
+            clip.write_videofile(f"{i}.mp4", fps=12, codec='png')                           #Convert combined clip to mp4 and save.
             sleep(1)                                                                        #Sleep 1 sec so saving and deleting don't overlap.
             os.remove(f"./{i}.jpeg")                                                        #Delete the raw jpeg.
             os.chdir(f"../../../../../")                                                    #Go back to main directory.
