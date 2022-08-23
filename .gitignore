@@ -1,5 +1,10 @@
 .References/
-media/
-raw_music/
-raw_thumbnails/
-upload/
+media/*
+raw_music/*
+raw_thumbnails/*
+upload/*
+
+!media/.gitkeep
+!raw_music/.gitkeep
+!raw_thumbnails/.gitkeep
+!upload/.gitkeep
