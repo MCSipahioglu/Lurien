@@ -56,7 +56,7 @@ Post_2=class_post(
             source_site=    "reddit",
             type=           "compilations",
             tag=            "WhatCouldGoWrong",
-            source=         ['Whatcouldgowrong', 'therewasanattempt', 'instant_regret'],
+            source=         ['Whatcouldgowrong', 'therewasanattempt', 'instant_regret', 'holdmycosmo', 'Wellthatsucks', 'perfectlycutscreams', 'instant_regret'],
             post_title=     "Funniest Fails Compilation"
             )
 
@@ -69,7 +69,7 @@ Post_3=class_post(
             source_site=    "reddit",
             type=           "compilations",
             tag=            "FunnyImages",
-            source=         ['PerfectTiming', 'trippinthroughtime', 'ATBGE', "interestingasfuck"],
+            source=         ['PerfectTiming', 'trippinthroughtime', 'ATBGE', 'interestingasfuck', 'mildlyinteresting', 'woahdude'],
             post_title=     "Most Viral Images Compilation",
             audio=          "Pizzatron3000"
             )
@@ -97,7 +97,7 @@ Post_5=class_post(
             source_site=    "reddit",
             type=           "compilations",
             tag=            "ViralVideos",
-            source=         ['videos', 'vidid','woahdude','Damnthatsinteresting','NatureIsFuckingLit','nextfuckinglevel'],
+            source=         ['videos', 'vidid','woahdude','Damnthatsinteresting','NatureIsFuckingLit','nextfuckinglevel', 'BeAmazed', 'holdmyredbull', 'nonononoyes'],
             post_title=     "Today's Most Viral Videos Compilation"
             )
 
@@ -109,22 +109,14 @@ Post_6=class_post(
             raw_material=   "video",
             source_site=    "reddit",
             type=           "compilations",
-            tag=            "PerfectlyCutScreams",
-            source=         ['perfectlycutscreams'],
-            post_title=     "Perfectly Cut Screams Compilation"
+            tag=            "OddlySatisfying",
+            source=         ['oddlysatisfying'],
+            post_title=     "Oddly Satisfying Compilation"
             )
 
 Post_list=[Post_1, Post_2, Post_3,Post_4,Post_5,Post_6]
 
-#weekly  AskReddit AskMen Talesfromretail PettyRevenge Nostupidquestions, YouShouldKnow, AskWomen, confession, Explain like I am five...Stories 2. Hesap
-#
-#Best of Imgur Today
-#Best of Imgur Shitposting aka User Submitted
-#Daily Tiktok Digest
-#Gfycat Random Popular Internet Gifs Dump Today
-#Best of Vine Today (Just Like its alive)
-#People based tiktok/instagram reel compilation every week
-#For the individual videos/content in our compilations we don't claim any ownership. We just try to make surfing through the internet more efficient. If you are a creator and want your content removed from our videos, please contact us. We will trim your content out within 24 hours guarenteed.
+
 
 #Methods
 def create_folders(Post):

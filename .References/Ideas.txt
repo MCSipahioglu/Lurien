@@ -1,5 +1,3 @@
-Octobots
-
 Find which channels with high subscriber counts can be automated?
 
 General
@@ -30,33 +28,12 @@ Channel 1: From Twitch Download Popular clips and upload them ( twitch logo>_ (r
 	Twitch mapimiz var, Youtube map?
 	Her kanal 3-5 kişi takip etsin
 	Bir kanal: İlgili birkaç kişinin hepsinin klipleri OTV + Friends gibi.
-
-Channel 2: News Ripper (New Media?)
-	Sync with my news selector
-	No, market too small. 10M Türk dizi marketi varsa 2M haber var. Youtubeda dizi fragmanı 1M alıyorsa haber 200K'da limitli?
-	Cüneyt vs.'ler 200-750k kasıyor.
-	Monetizasyon Türk firmalar üstünden olmamalı.
+https://twitchatlas.com/
 
 
 
-Channel 3: Iconic Clips from Movies (Saturated market?)
-	No. Saturated.
-
-Channel 4:An actual news outlet with actual news for turkey?
-	8m tv den izleniyor, 70m yt piyasasi var
-	Genc nufus %50 filan ama
-	Onlara hitap etmesi daha iyi
 
 
-Channel 5:The Lazy man's Kitchen
-	20 min
-	minimum pantry
-	minimum dirty dishes at the end
-
-Channel 6: Movie Clips and straight from new movies
-
-
-Imgur - Random Posts That Will Make Yout Think And Laugh Compilation
 
 
 Lurien NECST (Direkt patlamasa da botlarla baya bişi yapmayı öğrencez.)
@@ -65,10 +42,3 @@ X Entry
 - Control
 ✓ Scale
 ✓ Time
-
-
-temp
-
-References
-----------
-https://twitchatlas.com/

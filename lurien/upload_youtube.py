@@ -1,5 +1,6 @@
 #Full Tutorial from: https://www.youtube.com/watch?v=aFwZgth790Q&ab_channel=TonyTeachesTech
 #Also fixed "apiclient" module (outdated) as googleapiclient in the import section.
+#Modified for use as a function insted of a script via: https://github.com/SteBurz/youtube-uploader
 
 import httplib2
 import os
