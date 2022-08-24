@@ -4,7 +4,7 @@ from datetime import date                       #Daily dates for naming download
 
 
 #Global Variables
-compilation_time_limit=600  #Final length (s)
+compilation_time_limit=30  #Final length (s)
 Image_Clip_Length=10        #Image Clip Length (s)
 Text_Clip_Length=4          #Text Clip Length (s)
 Youtube_Description =  "The Internet Compiler welcomes you all.\n\
@@ -17,7 +17,11 @@ Thank you for watching and we hope to see you in another video. Salut.\n\
 \n\
 \n\
 For the individual content in our compilations we don't claim any ownership. We just try to make surfing through the internet more efficient.\n\
-For your copyright claims please mail to theinternetcompiler+copyrightresolution@gmail.com, our team will resolve the issue within 24 hours."
+For your copyright claims please mail to theinternetcompiler+copyrightresolution@gmail.com, our team will resolve the issue within 24 hours.\n\
+\n\
+\n\
+Credits in Order (Created/Filmed/Shared by)\n\
+-------------------------------------------"
 Youtube_Keywords= "funny, compilation"
 
 
@@ -37,11 +41,11 @@ class class_post:
         self.source = source                    #Source subreddits
         self.post_title = post_title            #Youtube Post title framework
         self.audio = audio                      #Audio name for image type posts. (Empty by default, used only when necessary)
-        self.yt_title = yt_title
-        self.yt_description = yt_description
-        self.yt_category = yt_category
-        self.yt_keywords = yt_keywords
-        self.yt_privacyStatus = yt_privacyStatus
+        self.yt_title = yt_title                #Youtube Title (It is assigned automatically later using Post Title)
+        self.yt_description = yt_description    #Youtube Description
+        self.yt_category = yt_category          #Youtube Category (Set to entertainment by default)
+        self.yt_keywords = yt_keywords          #Youtube Keywords (Set above)
+        self.yt_privacyStatus = yt_privacyStatus#Youtube privacy status. (Set to public by default)
 
 
 

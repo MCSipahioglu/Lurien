@@ -63,7 +63,8 @@ def video(Post):                        #Downloads top videos from the given sub
             os.remove(f"./{i}x.mp4")                                                        #Delete the raw video.
             os.chdir(f"../../../../../")                                                    #Go back to main directory.
             
-
+            
+            Post.yt_description+=f"\n{submission.author}"                                   #Add credits.
             time_current=time_current + clip.duration                                       #clip.duration gives newly downloaded video length in seconds.
             if time_current>Post.time_limit:                                                #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
