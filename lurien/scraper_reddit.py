@@ -12,10 +12,12 @@ from time import sleep
 
 
 
+
 change_settings({"IMAGEMAGICK_BINARY": r"./lurien_venv/ImageMagick-7.1.0-Q16-HDRI/ImageMagick-7.1.0-Q16-HDRI/convert.exe"})     #Setup for TextClip
-reddit=praw.Reddit(client_id='Dh7zCnkmEkfg3p8FPiBdSg',                                                                          #Setup for Reddit API
-            client_secret='p2oPRnTCTPqDdShCs-nb3i17FsAf3Q',
-            client_username='SignoraValentine',
+reddit=praw.Reddit(
+            client_id='iwEYw0KT5HXVRwWwHMCGIA',                                                                          #Setup for Reddit API, user:SV
+            client_secret='RAxCEQKDmWbeHLXLek7dD5aXk7yGSw',
+            username='SignoraValentine',
             password='tux9DtSBf@ZQp/p',
             user_agent='chrome:lurien_rdt:v1.0.0 (by:u/SignoraValentine)')
 
@@ -31,11 +33,6 @@ def text(Post, post_limit): #Remove post limit.
             print(submission.selftext)
             i=i+1                      #Download respective images, gifs, videos, galleries. Increment marker for naming the file.
             print("----------------")
-
-
-
-def image():
-    pass
 
 
 

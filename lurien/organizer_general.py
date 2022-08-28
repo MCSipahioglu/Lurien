@@ -29,7 +29,8 @@ Youtube_Keywords= "funny, compilation"
 #Classes
 class class_post:
     def __init__(self,counter_index,schedule_days,top_filter,time_limit,raw_material,source_site,type,tag,source,post_title,audio="",
-                yt_title="", yt_description="", yt_category="24", yt_keywords="", yt_privacyStatus="public", yt_link="https://www.youtube.com/watch?v="):
+                yt_title="", yt_description="", yt_category="24", yt_keywords="", yt_privacyStatus="public", yt_url="https://www.youtube.com/watch?v=",
+                ad_subreddits=[]):
         self.counter_index = counter_index      #Index for external upload counter
         self.schedule_days = schedule_days      #Which days to post this content
         self.top_filter = top_filter            #Top Daily/Weekly/Yearly
@@ -46,7 +47,8 @@ class class_post:
         self.yt_category = yt_category          #Youtube Category (Set to entertainment by default)
         self.yt_keywords = yt_keywords          #Youtube Keywords (Set above)
         self.yt_privacyStatus = yt_privacyStatus#Youtube privacy status. (Set to public by default)
-        self.yt_link = yt_link                  #Youtube link (Given the start of the url, the video id is added to the end of it after posting.)
+        self.yt_url = yt_url                    #Youtube link (Given the start of the url, the video id is added to the end of it after posting.)
+        self.ad_subreddits = ad_subreddits      #Advertise to these subreddits.
 
 
 
@@ -65,7 +67,8 @@ Post_1=class_post(
             source=         ['funny','funnyvideos', 'holdmybeer','Unexpected'],
             post_title=     "Funny Videos Compilation",
             yt_description= Youtube_Description,
-            yt_keywords=    Youtube_Keywords
+            yt_keywords=    Youtube_Keywords,
+            ad_subreddits=  ["test"]
             )
 
 Post_2=class_post(
@@ -80,7 +83,8 @@ Post_2=class_post(
             source=         ['Whatcouldgowrong', 'instant_regret', 'holdmycosmo', 'Wellthatsucks', 'perfectlycutscreams', 'WinStupidPrizes'],
             post_title=     "Funniest Fails Compilation",
             yt_description= Youtube_Description,
-            yt_keywords=    Youtube_Keywords
+            yt_keywords=    Youtube_Keywords,
+            ad_subreddits=  ["test"]
             )
 
 Post_3=class_post(
@@ -96,7 +100,8 @@ Post_3=class_post(
             post_title=     "Most Viral Images Compilation",
             audio=          "Pizzatron3000",
             yt_description= Youtube_Description,
-            yt_keywords=    Youtube_Keywords
+            yt_keywords=    Youtube_Keywords,
+            ad_subreddits=  ["test"]
             )
 
 Post_4=class_post(
@@ -112,7 +117,8 @@ Post_4=class_post(
             post_title=     "Funniest Memes Compilation",
             audio=          "Pizzatron3000",
             yt_description= Youtube_Description,
-            yt_keywords=    Youtube_Keywords
+            yt_keywords=    Youtube_Keywords,
+            ad_subreddits=  ["test"]
             )
 
 Post_5=class_post(
@@ -127,7 +133,8 @@ Post_5=class_post(
             source=         ['videos', 'vidid','woahdude','MadeMeSmile','Damnthatsinteresting','NatureIsFuckingLit','nextfuckinglevel', 'BeAmazed', 'holdmyredbull', 'nonononoyes'],
             post_title=     "Today's Most Viral Videos Compilation",
             yt_description= Youtube_Description,
-            yt_keywords=    Youtube_Keywords
+            yt_keywords=    Youtube_Keywords,
+            ad_subreddits=  ["test"]
             )
 
 Post_6=class_post(
@@ -142,7 +149,8 @@ Post_6=class_post(
             source=         ['oddlysatisfying'],
             post_title=     "Oddly Satisfying Compilation",
             yt_description= Youtube_Description,
-            yt_keywords=    Youtube_Keywords
+            yt_keywords=    Youtube_Keywords,
+            ad_subreddits=  ["test"]
             )
 
 Post_list=[Post_1, Post_2, Post_3,Post_4,Post_5,Post_6]
