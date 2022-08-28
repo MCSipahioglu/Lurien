@@ -70,6 +70,7 @@ def initialize_upload(youtube, Post):
 
 
   videoId=resumable_upload(insert_request)      #Upload the video and fetch back its ID.
+  Post.yt_link+=videoId                         #Add the video Id to create the post's url.
 
   thumbnail_request=youtube.thumbnails().set(
   videoId = videoId,
