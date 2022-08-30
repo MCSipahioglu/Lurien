@@ -1,12 +1,13 @@
-import os                                       #For making directories
-from datetime import date                       #Daily dates for naming downloads.
+import os                       #For making directories
+from datetime import date       #Daily dates for naming downloads.
 
 
 
 #Global Variables
-compilation_time_limit=30  #Final length (s)
-Image_Clip_Length=10        #Image Clip Length (s)
-Text_Clip_Length=4          #Text Clip Length (s)
+compilation_time_limit=30       #Final length for compilations (s)
+short_time_limit=30             #Final length for shorts (s)
+Image_Clip_Length=10            #Image Clip Length (s)
+Text_Clip_Length=4              #Text Clip Length (s)
 Youtube_Description =  "The Internet Compiler welcomes you all.\n\
 This isn't your first time watching our videos? Consider subscribing.\n\
 You want your voice heard? Maybe leave a comment.\n\
@@ -153,7 +154,23 @@ Post_6=class_post(
             ad_subreddits=  ["test"]
             )
 
-Post_list=[Post_1, Post_2, Post_3,Post_4,Post_5,Post_6]
+Post_7=class_post(
+            counter_index=  6,
+            schedule_days=  ["Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"],
+            top_filter=     "day",
+            time_limit=     short_time_limit,
+            raw_material=   "text",
+            source_site=    "reddit",
+            type=           "shorts",
+            tag=            "AskMen",
+            source=         'AskMen',
+            post_title=     "Ask Men Compilation",
+            yt_description= Youtube_Description,
+            yt_keywords=    Youtube_Keywords,
+            ad_subreddits=  ["test"]
+            )
+
+Post_list=[Post_1, Post_2, Post_3,Post_4,Post_5,Post_6, Post_7]
 
 #Cute/Wholesome 'Eyebleach', 'cute', 
 
@@ -163,8 +180,7 @@ def create_folders(Post):
         if not os.path.isdir(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}"):
                 os.makedirs(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}")        #If not existant create dated media folder
 
-        if not os.path.isdir(f"./upload/{date.today()}/youtube"):
-                os.makedirs(f"./upload/{date.today()}/youtube")                                         #and dated upload folders
-        #os.makedirs(f"./upload/{date.today()}/instagram")
+        if not os.path.isdir(f"./upload/{date.today()}/compilations"):
+                os.makedirs(f"./upload/{date.today()}/compilations")                                    #and dated upload folders
 
 

@@ -1,16 +1,16 @@
 #Primary Packages
-from time import time
+from time import time                       #F
 import praw                                 #For scraping Reddit (Gets urls of posts)
 import requests                             #For getting Reddit media links (For feeding RedDownloader)
 from RedDownloader import RedDownloader     #For downloading Reddit media
 from moviepy.editor import *                #For determining video length, making clips from iamges.
 from datetime import date                   #Daily dates for naming downloads.
-from lurien import organizer_general
+from lurien import organizer_general        #Used for global variables.
 from moviepy.config import change_settings  #Required to declare ImageMagick Binary for TextClips to work.
-from time import sleep
-
-
-
+from time import sleep                      #Used for minor delays to prevent processing overlap.
+from gtts import gTTS                       #For text to speech for the "text" type posts.
+from mutagen.mp3 import MP3                 #Used for getting length of mp3.
+import multiprocessing                      #For multithreading when exporting video.
 
 
 change_settings({"IMAGEMAGICK_BINARY": r"./lurien_venv/ImageMagick-7.1.0-Q16-HDRI/ImageMagick-7.1.0-Q16-HDRI/convert.exe"})     #Setup for TextClip
@@ -22,17 +22,6 @@ reddit=praw.Reddit(
             user_agent='chrome:lurien_rdt:v1.0.0 (by:u/SignoraValentine)')
 
 
-
-
-
-def text(Post, post_limit): #Remove post limit.
-    for subreddit in Post.source:
-        i=1
-        for submission in reddit.subreddit(subreddit).top(time_filter=Post.top_filter, limit=post_limit):
-            print(submission.title)    #Show the submission title as feedback.
-            print(submission.selftext)
-            i=i+1                      #Download respective images, gifs, videos, galleries. Increment marker for naming the file.
-            print("----------------")
 
 
 
@@ -62,6 +51,8 @@ def video(Post):                        #Downloads top videos from the given sub
             
             
             Post.yt_description+=f"\n{submission.author}"                                   #Add credits.
+
+            #Break at desired time
             time_current=time_current + clip.duration                                       #clip.duration gives newly downloaded video length in seconds.
             if time_current>Post.time_limit:                                                #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
@@ -96,8 +87,8 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
             os.remove(f"./{i}x.mp4")                                                        #Delete the raw video.
             os.chdir(f"../../../../../")                                                    #Go back to main directory.
 
+            #Break at desired time
             time_current=time_current + clip.duration                                       #clip.duration gives newly downloaded video length in seconds.
-            
             if time_current>=Post.time_limit:                                               #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
                 break
@@ -124,8 +115,8 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
             os.remove(f"./{i}.gif")                                                         #Delete the raw gif.
             os.chdir(f"../../../../../")                                                    #Go back to main directory.
 
+            #Break at desired time
             time_current=time_current + clip.duration                                       #clip.duration gives newly downloaded video length in seconds.
-            
             if time_current>=Post.time_limit:                                               #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
                 break
@@ -153,8 +144,8 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
             os.remove(f"./{i}.jpeg")                                                        #Delete the raw jpeg.
             os.chdir(f"../../../../../")                                                    #Go back to main directory.
 
+            #Break at desired time
             time_current=time_current + organizer_general.Image_Clip_Length                 #Updated final video length.
-            
             if time_current>=Post.time_limit:                                               #if the cumulative length of the clips exceed the desired length, stop downloading.
                 print(f"Downloaded Current Time: {time_current}")
                 break
@@ -166,6 +157,93 @@ def mixed(Post):                        #Downloads all images, gifs, videos (In 
         else:                                                                               #Else if it is a gallery, skip.
             pass
 
-
         
+
+def text_with_stitching(Post):
+    for submission in reddit.subreddit(Post.source).top(time_filter=Post.top_filter):       #Take just the top non-NSFW thread by breaking at the end.
+        if submission.over_18:
+            continue
+        time_current=0                  #time_current holds total length of downloaded clips.
+        i=1                             #Increment marker for naming the file.
+        clip_list=[]                    #Define empty clip_list to collect all text_clips (moviepy class) into.
+
+        Post.yt_description+=f"\n{submission.author}"                                       #Add credits.
+        
+        #Setup TTS and save TTS of title.
+        tts=gTTS(text=submission.title, lang="en")
+        tts.save(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}0.mp3")
+        audio=MP3(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}0.mp3")
+        time_current=time_current + audio.info.length                                       #Add tts clip length to total length.
+
+        #Generate "screenshot" with text clip.
+        text_clip=TextClip(f"{submission.title}", font="NotoSans-Bold", fontsize=40, method="caption", align="West",
+                            color="white", bg_color="black", size=(1080,None))\
+                            .set_duration(audio.info.length)                                #Create post title clip to respective tts length.
+        tts_clip=AudioFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}0.mp3")
+        clip=CompositeVideoClip([text_clip.set_position("center")], size=(1080,1920))       #Convert to video clip.
+        clip=clip.set_audio(tts_clip)                                                       #Give text_clip sound
+        clip_list.append(clip)                                                              #Add text with audio to clip_list.
+
+
+
+        comments=submission.comments    #Get the comment tree
+        for comment in comments:        #Get the comment
+
+            if comment.body in ["[removed]", "[deleted]"]:                                  #Skip removed comments.
+                continue
+            
+            i+=1                                                                            #Increment marker for naming the comments.
+
+            Post.yt_description+=f"\n{comment.author}"                                      #Add credits.
+
+            comment_paragraphs=comment.body.split("\n")                                     #Split long comments to paragraphs.
+            while("" in comment_paragraphs):                                                #Remove empty lines
+                comment_paragraphs.remove("")
+            print(comment_paragraphs)
+            j=0                                                                             #Increment marker for naming the paragraphs.
+            for paragraph in comment_paragraphs:
+                j+=1                                                                        #Increment paragraph counter for naming.
+
+                #Setup TTS and save TTS of comments.
+                tts=gTTS(text=paragraph, lang="en")
+                tts.save(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}{j}.mp3")
+                audio=MP3(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}{j}.mp3")
+                time_current=time_current + audio.info.length                               #Add tts length to total current time.
+
+                if j==1:
+                    paragraph=f"u/{comment.author}\n" + paragraph                           #Add username to the first paragraph of split paragraph comments. (After tts is done, so it won't be read.)
+                
+                #Generate "screenshot" with text clip.
+                text_clip=TextClip(f"{paragraph}", font="NotoSans-Medium", fontsize=40, method="caption", align="West",
+                                    color="white", bg_color="black", size=(1080,None))\
+                                    .set_duration(audio.info.length)                        #Create post title clip to respective tts length.
+                tts_clip=AudioFileClip(f"./media/{date.today()}/{Post.source_site}/{Post.type}/{Post.tag}/{i}{j}.mp3")
+                clip=CompositeVideoClip([text_clip.set_position("center")], size=(1080,1920))#Convert to video clip.
+                clip=clip.set_audio(tts_clip)                                               #Give text_clip sound
+                clip_list.append(clip)                                                      #Add text with audio to clip_list.
+
+
+
+            #Break if at desired time after each full comment.
+            if time_current>Post.time_limit:                                                #if the cumulative length of the clips exceed the desired length, stop downloading.
+                print(f"Downloaded Current Time: {time_current}")
+
+                if Post.type == "shorts":
+                    print("Removing last clip to make a short.")
+                    clip_list = clip_list[: len(clip_list) - j]                             #Remove last comment if the last comment made us go overtime. (Equivalent to removing last j clips from clip list. (j is the number of paragraphs in the last comment))
+                    time_current=time_current - audio.info.length
+                    print(f"Final Time: {time_current}")
+
+                break
+
+        text_video_clip = concatenate_videoclips(clip_list,method="compose")                #Concatenate all text video clips (with audio) together.
+        background_clip=VideoFileClip(f"./raw_background/exvid.mp4")                        #Taking the background video.
+        final=CompositeVideoClip([background_clip.without_audio().resize( (1080,1920) ),text_video_clip])         #Overlay combined texts with audio onto background video.
+        os.chdir(f"./upload/{date.today()}/compilations")                                   #Change Directory to export path. (Moviepy doesn't let you choose export path.)
+        final.write_videofile(f"{Post.tag}.mp4", codec='png',
+                                fps=60, preset="ultrafast",
+                                threads=multiprocessing.cpu_count())                        #Export the final video
+        os.chdir(f"../../../")                                                              #Go back to main directory.
+        break                                                                               #Must break here so that after generating video from 1 non-NSFW post we exit.
+
 

@@ -21,11 +21,11 @@ for Post in organizer_general.Post_list:                        #Iterating throu
             #uploader_general.youtube(Post)
             pass
         elif Post.raw_material == "text":
-            #scraper_reddit.text(Post.raw_material,post_limit)
+            scraper_reddit.text_with_stitching(Post)
             pass
 
-        advertiser_general.all(Post)
-        break     #Remove after testing ads and upvote
+        #advertiser_general.all(Post)
+        #break     #Remove after testing ads and upvote
 
 
 
